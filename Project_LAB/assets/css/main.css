@@ -3447,11 +3447,20 @@ input, select, textarea {
 			border-radius: 6px;
 			text-transform: uppercase;
 		}
+#Suraj{
+	height: 255px;
+    width: 100%;
+}
+#Sidd{
+	height: 250px;
+    width: 100%;
+}
+#Shoubick{
+	height: 252px;
+    width: 100%;
+}
+#Rohit{
+	height: 250px;
+    width: 100%;
+}
 
-		/* .carousel-inner img {
-			margin-left: 20px;
-			margin-right: 40px;
-			margin-bottom: 30px;
-			width:100%;
-			height:600px;
-		  } */
