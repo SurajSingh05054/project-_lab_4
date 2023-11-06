@@ -56,7 +56,7 @@
 			<div class="inner">
 				<h1>Contact Us</h1>
 				<span class="image main"><img src="images/map.png" alt="" /></span>
-				<p>Renting a car in Roorkeeis just what you need if you're looking to zoom around Roorkee with ease
+				<p>Renting a car in Roorkee is just what you need if you're looking to zoom around Roorkee with ease
 					and comfort. Be it a short trip within the city or a holiday drive to nearby destinations, opting
 					for ------ in Roorkee from a rental car host is a fun option compared to inconvenient public
 					transport. Experience the unparalleled freedom to zip around in a car of your choice with -------.</p>
@@ -68,18 +68,18 @@
 			<div class="inner">
 				<section>
 					<h2>Contact Us</h2>
-					<form method="post" action="#">
+					<form method="post" action="" id="contact_form">
 						<div class="fields">
 							<div class="field half">
-								<input type="text" name="name" id="name" placeholder="Name" />
+								<input type="text" name="name" id="name" placeholder="Name" required/>
 							</div>
 
 							<div class="field half">
-								<input type="text" name="email" id="email" placeholder="Email" />
+								<input type="email" name="email" id="email" placeholder="Email" required/>
 							</div>
 
 							<div class="field">
-								<input type="text" name="subject" id="subject" placeholder="subject" />
+								<input type="text" name="subject" id="subject" placeholder="subject" required />
 							</div>
 
 							<div class="field">
@@ -90,7 +90,7 @@
 								<label>&nbsp;</label>
 
 								<ul class="actions">
-									<li><input type="submit" value="Send Message" class="primary" /></li>
+									<li><input type="submit" name="submit" id="submit" onclick="submitForm()" value="Send Message" class="primary" /></li>
 								</ul>
 							</div>
 						</div>
@@ -130,6 +130,50 @@
 	<script src="assets/js/jquery.scrolly.min.js"></script>
 	<script src="assets/js/jquery.scrollex.min.js"></script>
 	<script src="assets/js/main.js"></script>
+	<script>
+		function validateForm() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var subject = document.getElementById("subject").value;
+
+            // Simple validation for name, email, and subject
+            if (name === '' || email === '' || subject === '') {
+                alert("Please fill out all fields.");
+                return false;
+            }
+
+            // Validate email using a regular expression
+            var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!email.match(emailRegex)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            return true;
+        }
+		
+        function submitForm() {
+            // Get the form data
+           if (validateForm()) {
+				var formData = new FormData(document.getElementById("contact_form"));
+
+				// Send a POST request to the PHP page
+				fetch('contact.php', {
+					method: 'POST',
+					body: formData
+				})
+				.then(response => response.text())
+				.then(data => {
+					// Display the response message in an alert
+					alert(data);
+				})
+				.catch(error => {
+					console.error('Error:', error);
+				});
+			
+		   }
+        }
+    </script>
 
 </body>
 

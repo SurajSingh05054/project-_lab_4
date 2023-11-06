@@ -109,49 +109,30 @@
 					<footer id="footer">
 						<div class="inner">
 							<section>
-								<h2>Contact now</h2>
-								<form method="post" action="#">
+								<h2>Contact Us</h2>
+								<form method="post" action="" id="contact_form">
 									<div class="fields">
 										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Your Name" />
+											<input type="text" name="name" id="name" placeholder="Name" required/>
 										</div>
 
 										<div class="field half">
-											<select name="vehicle-type" id="vehicle-type">
-												<option value="">Select Offer A</option>
-												<option value="">Select Offer B</option>
-												<option value="">Select Offer C</option>
-												<option value="">Select Offer D</option>
-												<option value="">Select Offer E</option>
-												<option value="">Select Offer F</option>
-											</select>
-										</div>
-
-										<div class="field half">
-											<input type="text" name="date-from" id="date-from" placeholder="Pick-up date/time" />
-										</div>
-
-										<div class="field half">
-											<input type="text" name="date-to" id="date-to" placeholder="Return date/tiem" />
-										</div>
-
-										<div class="field half">
-											<input type="text" name="email" id="email" placeholder="Email" />
-										</div>
-
-										<div class="field half">
-											<input type="text" name="phone" id="phone" placeholder="Phone" />
+											<input type="email" name="email" id="email" placeholder="Email" required/>
 										</div>
 
 										<div class="field">
-											<textarea name="message" id="message" rows="3" placeholder="Comment"></textarea>
+											<input type="text" name="subject" id="subject" placeholder="subject" required />
+										</div>
+
+										<div class="field">
+											<textarea name="message" id="message" rows="3" placeholder="Notes"></textarea>
 										</div>
 
 										<div class="field text-right">
 											<label>&nbsp;</label>
 
 											<ul class="actions">
-												<li><input type="submit" value="Contact Now" class="primary" /></li>
+												<li><input type="submit" name="submit" id="submit" onclick="submitForm()" value="Send Message" class="primary" /></li>
 											</ul>
 										</div>
 									</div>
@@ -162,8 +143,8 @@
 
 								<ul class="alt">
 									<li><span class="fa fa-envelope-o"></span> <a href="#">contact@company.com</a></li>
-									<li><span class="fa fa-phone"></span> +1 333 4040 5566 </li>
-									<li><span class="fa fa-map-pin"></span> 212 Barrington Court New York, ABC 10001 United States of America</li>
+									<li><span class="fa fa-phone"></span> +91 5354325472 </li>
+									<li><span class="fa fa-map-pin"></span> Mandawar (22 km Milestone), Roorkee-Dehradun highway (NH-73) Roorkee, Uttarakhand - 247167</li>
 								</ul>
 
 								<h2>Follow Us</h2>
@@ -190,7 +171,50 @@
 			<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="assets/js/main.js"></script><script>
+				function validateForm() {
+					var name = document.getElementById("name").value;
+					var email = document.getElementById("email").value;
+					var subject = document.getElementById("subject").value;
+		
+					// Simple validation for name, email, and subject
+					if (name === '' || email === '' || subject === '') {
+						alert("Please fill out all fields.");
+						return false;
+					}
+		
+					// Validate email using a regular expression
+					var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+					if (!email.match(emailRegex)) {
+						alert("Please enter a valid email address.");
+						return false;
+					}
+		
+					return true;
+				}
+				
+				function submitForm() {
+					// Get the form data
+				   if (validateForm()) {
+						var formData = new FormData(document.getElementById("contact_form"));
+		
+						// Send a POST request to the PHP page
+						fetch('contact.php', {
+							method: 'POST',
+							body: formData
+						})
+						.then(response => response.text())
+						.then(data => {
+							// Display the response message in an alert
+							alert(data);
+						})
+						.catch(error => {
+							console.error('Error:', error);
+						});
+					
+				   }
+				}
+			</script>
 
 	</body>
 </html>
